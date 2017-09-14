@@ -16,14 +16,14 @@ const Exchange = (props) => {
     messages,
     account,
     ethBalance,
-    calcETHAmount,
-    calcNTZAmount,
     nutzBalance,
     ceiling,
     floor,
     handleNTZSell,
     handleNTZPurchase,
   } = props;
+  const calcETHAmount = (ntz) => new BigNumber(ntz.toString()).div(floor);
+  const calcNTZAmount = (eth) => ceiling.mul(eth.toString());
   return (
     <Pane name="dashboard-exchange" >
       <Section>
@@ -74,8 +74,6 @@ Exchange.propTypes = {
   amountUnit: PropTypes.oneOf([ETH, NTZ]),
   account: PropTypes.object,
   ethBalance: PropTypes.object,
-  calcETHAmount: PropTypes.func,
-  calcNTZAmount: PropTypes.func,
   nutzBalance: PropTypes.object,
   messages: PropTypes.object,
   ceiling: PropTypes.object,
