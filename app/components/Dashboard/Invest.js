@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { POWERUP, POWERDOWN } from '../../containers/Dashboard/actions';
+import messages from '../../containers/Dashboard/messages';
 
 import Tabs from './Tabs';
 import PanesRoot from './PanesRoot';
@@ -13,12 +15,12 @@ import { Pane, Section } from './styles';
 const TABS = [
   {
     name: POWERUP,
-    title: 'PowerUp',
+    title: <FormattedMessage {...messages.powerUpTitle} />,
     icon: 'fa fa-arrow-up',
   },
   {
     name: POWERDOWN,
-    title: 'PowerDown',
+    title: <FormattedMessage {...messages.powerDownTitle} />,
     icon: 'fa fa-arrow-down',
   },
 ];

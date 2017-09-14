@@ -108,7 +108,7 @@ export default defineMessages({
   },
   powerUpDescr: {
     id: 'app.containers.Dashboard.powerUpDescr',
-    defaultMessage: 'Power Up will convert NTZ to ABP immediately so you can invest in the Acebuster\'s economy.',
+    defaultMessage: 'Power Up will convert NTZ to ABP and make you a shareholder in the Acebusters Economy. Holding ABP, you will profit from our growth and be able to vote on governance policies.',
   },
   powerDownAmountLabel: {
     id: 'app.containers.Dashboard.powerDownAmountLabel',
