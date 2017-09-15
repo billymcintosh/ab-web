@@ -4,6 +4,8 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
 import TransferDialog from '../../containers/TransferDialog';
 
+import Economy from '../Dashboard/Economy';
+
 import Alert from '../Alert';
 import BtnUpgrade from '../Dashboard/BtnUpgrade';
 
@@ -20,6 +22,7 @@ const PowerUp = (props) => {
     <div>
       <Description>
         <FormattedHTMLMessage {...messages.powerUpDescr} />
+        <Economy {...props} />
       </Description>
       {!account.isLocked ?
         <TransferDialog

@@ -28,6 +28,9 @@ export const formatNtz = (amount, dp = 0) => formatAmount(NTZ_DECIMALS, amount, 
 export const formatAbp = formatAmount.bind(null, ABP_DECIMALS);
 export const formatEth = formatAmount.bind(null, ETH_DECIMALS);
 
+// give a float of 0.02088839248, return '0.020'
+export const percent3FixedDec = (float) => parseFloat(Math.round(float * 1000) / 1000).toFixed(3);
+
 // only allow digits and one dot
 export const normalizerFloat = (value) => {
   if (value === '.') return '0.';
