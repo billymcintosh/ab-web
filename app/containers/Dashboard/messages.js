@@ -110,6 +110,10 @@ export default defineMessages({
     id: 'app.containers.Dashboard.powerUpDescr',
     defaultMessage: 'Power Up will convert NTZ to ABP and make you a shareholder in the Acebusters Economy. Holding ABP, you will profit from our growth and be able to vote on governance policies.',
   },
+  powerUpAvailable: {
+    id: 'app.containers.Dashboard.powerUpAvailable',
+    defaultMessage: 'Power Up Available:',
+  },
   powerDownAmountLabel: {
     id: 'app.containers.Dashboard.powerDownAmountLabel',
     defaultMessage: 'Amount ABP',
@@ -120,7 +124,11 @@ export default defineMessages({
   },
   powerDownDescr: {
     id: 'app.containers.Dashboard.powerDownDescr',
-    defaultMessage: 'Power Down will convert ABP back to NTZ over a period of 3 months.<br />Minimum Power Down amount: {min} ABP',
+    defaultMessage: 'Power Down will convert ABP back to NTZ. Powerdown is split over multiple payouts and a period of 3 months.',
+  },
+  powerDownMin: {
+    id: 'app.containers.Dashboard.powerDownMin',
+    defaultMessage: 'Minimum Power Down amount: {min} ABP',
   },
   powerDownPrereq: {
     id: 'app.containers.Dashboard.powerDownPrereq',
@@ -193,5 +201,33 @@ export default defineMessages({
   upgradeAccount: {
     id: 'app.containers.Dashboard.upgradeAccount',
     defaultMessage: 'Upgrade to Shark account',
+  },
+  economyTitle: {
+    id: 'app.containers.Dashboard.economyTitle',
+    defaultMessage: 'Acebusters Economy',
+  },
+  economyListTotal: {
+    id: 'app.containers.Dashboard.economyListTotal',
+    defaultMessage: 'Total',
+  },
+  economyListActive: {
+    id: 'app.containers.Dashboard.economyListActive',
+    defaultMessage: 'Active',
+  },
+  economyListOwnership: {
+    id: 'app.containers.Dashboard.economyListOwnership',
+    defaultMessage: 'Your Ownership %',
+  },
+  ntzUnit: {
+    id: 'app.containers.Dashboard.ntzUnit',
+    defaultMessage: '{amount} NTZ',
+  },
+  abpUnit: {
+    id: 'app.containers.Dashboard.abpUnit',
+    defaultMessage: '{amount} ABP',
+  },
+  percentUnit: {
+    id: 'app.containers.Dashboard.percentUnit',
+    defaultMessage: '{amount} %',
   },
 });

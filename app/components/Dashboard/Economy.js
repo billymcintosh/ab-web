@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import List from '../List';
 
@@ -12,16 +13,27 @@ const Economy = (props) => {
     activeSupplyABP,
     pwrBalance,
     babzBalance,
+    messages,
   } = props;
   const ECONOMY_LIST = [
-    ['Active', '~', formatAbp(activeSupplyABP)],
-    ['Total', formatNtz(totalSupplyNTZ), formatAbp(totalSupplyABP)],
-    ['Available', '~', formatAbp(totalSupplyABP - activeSupplyABP)],
-    ['Your Balance', formatNtz(babzBalance), formatAbp(pwrBalance)],
-    ['Economy %', percent3FixedDec(babzBalance / totalSupplyNTZ), percent3FixedDec(pwrBalance / totalSupplyABP)],
+    [
+      <FormattedMessage {...messages.economyListOwnership} />,
+      <FormattedMessage values={{ amount: percent3FixedDec(babzBalance / totalSupplyNTZ) }} {...messages.percentUnit} />,
+      <FormattedMessage values={{ amount: percent3FixedDec(pwrBalance / totalSupplyABP) }} {...messages.percentUnit} />,
+    ],
+    [
+      <FormattedMessage {...messages.economyListActive} />,
+      <FormattedMessage values={{ amount: formatNtz(totalSupplyNTZ) }} {...messages.ntzUnit} />,
+      <FormattedMessage values={{ amount: formatAbp(activeSupplyABP) }} {...messages.abpUnit} />,
+    ],
+    [
+      <FormattedMessage {...messages.economyListTotal} />,
+      <FormattedMessage values={{ amount: formatNtz(totalSupplyNTZ) }} {...messages.ntzUnit} />,
+      <FormattedMessage values={{ amount: formatAbp(totalSupplyABP) }} {...messages.abpUnit} />,
+    ],
   ];
   const COL_STYLE = {
-    0: { width: 80 },
+    0: { width: 120 },
     1: { textAlign: 'left', width: 10, whiteSpace: 'nowrap' },
     2: { textAlign: 'left', width: 10, whiteSpace: 'nowrap' },
   };
@@ -36,11 +48,12 @@ const Economy = (props) => {
   );
 };
 Economy.propTypes = {
-  totalSupplyABP: PropTypes.object.isRequired,
-  totalSupplyNTZ: PropTypes.object.isRequired,
-  activeSupplyABP: PropTypes.object.isRequired,
-  pwrBalance: PropTypes.object.isRequired,
-  babzBalance: PropTypes.object.isRequired,
+  totalSupplyABP: PropTypes.object,
+  totalSupplyNTZ: PropTypes.object,
+  activeSupplyABP: PropTypes.object,
+  pwrBalance: PropTypes.object,
+  babzBalance: PropTypes.object,
+  messages: PropTypes.object,
 };
 
 export default Economy;

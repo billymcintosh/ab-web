@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
-import TransferDialog from '../../containers/TransferDialog';
+import { formatAbp } from '../../utils/amountFormatter';
 
-import Economy from '../Dashboard/Economy';
+import TransferDialog from '../../containers/TransferDialog';
 
 import Alert from '../Alert';
 import BtnUpgrade from '../Dashboard/BtnUpgrade';
+
+import { Bold } from '../Dashboard/styles';
 
 import { Description } from './styles';
 
@@ -17,12 +19,16 @@ const PowerUp = (props) => {
     account,
     nutzBalance,
     handlePowerUp,
+    totalSupplyABP,
+    activeSupplyABP,
   } = props;
   return (
     <div>
       <Description>
         <FormattedHTMLMessage {...messages.powerUpDescr} />
-        <Economy {...props} />
+        <Alert theme="info" style={{ textAlign: 'center' }}>
+          <Bold><FormattedMessage {...messages.powerUpAvailable} /></Bold> ~{formatAbp(totalSupplyABP - activeSupplyABP)} ABP
+        </Alert>
       </Description>
       {!account.isLocked ?
         <TransferDialog
@@ -47,6 +53,8 @@ PowerUp.propTypes = {
   nutzBalance: PropTypes.object,
   messages: PropTypes.object.isRequired,
   handlePowerUp: PropTypes.func,
+  totalSupplyABP: PropTypes.object.isRequired,
+  activeSupplyABP: PropTypes.object.isRequired,
 };
 
 export default PowerUp;

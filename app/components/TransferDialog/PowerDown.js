@@ -5,8 +5,6 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { ABP_DECIMALS } from '../../utils/amountFormatter';
 import TransferDialog from '../../containers/TransferDialog';
 
-import Economy from '../Dashboard/Economy';
-
 import Alert from '../Alert';
 
 import { Description } from './styles';
@@ -21,13 +19,10 @@ const PowerDown = (props) => {
   return (
     <div>
       <Description>
-        <FormattedHTMLMessage
-          {...messages.powerDownDescr}
-          values={{
-            min: totalSupplyABP.div(10000).div(ABP_DECIMALS).ceil().toNumber(),
-          }}
-        />
-        <Economy {...props} />
+        <FormattedHTMLMessage {...messages.powerDownDescr} />
+        <Alert theme="info">
+          <FormattedMessage values={{ min: totalSupplyABP.div(10000).div(ABP_DECIMALS).ceil().toNumber() }} {...messages.powerDownMin} />
+        </Alert>
       </Description>
       {pwrBalance && pwrBalance.equals(0) ?
         <Alert theme="warning">
