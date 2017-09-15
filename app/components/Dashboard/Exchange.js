@@ -7,6 +7,8 @@ import ExchangeDialog from '../../containers/ExchangeDialog';
 import { ETH, NTZ } from '../../containers/Dashboard/actions';
 import { formatNtz, NTZ_DECIMALS } from '../../utils/amountFormatter';
 
+import TokenAmountField from '../Form/TokenAmountField';
+
 import { Pane, Section, ExchangeContainer } from './styles';
 
 const Exchange = (props) => {
@@ -30,7 +32,8 @@ const Exchange = (props) => {
         <ExchangeContainer>
           {amountUnit === NTZ && nutzBalance && floor &&
             <ExchangeDialog
-              form="exchangeNTZ"
+              form="exchangeNTZtoETH"
+              component={TokenAmountField}
               title={<FormattedMessage {...messages.sellTitle} />}
               descr={<FormattedMessage {...messages.floorPrice} values={{ amount: formatNtz(floor.mul(NTZ_DECIMALS)) }} />}
               amountUnit={NTZ}
@@ -43,12 +46,14 @@ const Exchange = (props) => {
                 nutzBalance
               )}
               placeholder="0"
+              expectedAmountUnit="eth"
               {...props}
             />
           }
           {amountUnit === ETH && ethBalance && ceiling &&
             <ExchangeDialog
-              form="exchangeETH"
+              form="exchangeETHtoNTZ"
+              component={TokenAmountField}
               title={<FormattedMessage {...messages.purchaseTitle} />}
               descr={<FormattedMessage {...messages.ceilingPrice} values={{ amount: formatNtz(ceiling.mul(NTZ_DECIMALS)) }} />}
               amountUnit={ETH}
@@ -61,6 +66,7 @@ const Exchange = (props) => {
                 ethBalance
               )}
               placeholder="0.00"
+              expectedAmountUnit="ntz"
               {...props}
             />
           }
