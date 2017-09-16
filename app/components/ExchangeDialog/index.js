@@ -70,6 +70,7 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
             amountUnit={this.props.amountUnit}
             setAmountUnit={this.props.setAmountUnit}
             component={this.props.component}
+            placeholder={this.props.placeholder}
           />
 
           {calcExpectedAmount && expectedAmountUnit &&
@@ -121,6 +122,7 @@ ExchangeDialog.propTypes = {
   expectedAmountUnit: PropTypes.oneOf([NTZ, ETH, 'ABP']),
   component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   label: PropTypes.node,
+  placeholder: PropTypes.string,
 };
 
 export default ExchangeDialog;

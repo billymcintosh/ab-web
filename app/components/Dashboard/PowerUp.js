@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BigNumber from 'bignumber.js';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
-import { formatAbp } from '../../utils/amountFormatter';
+import { formatAbp, ABP_DECIMALS } from '../../utils/amountFormatter';
+import { round } from '../../utils';
 
-import TransferDialog from '../../containers/TransferDialog';
+import { NTZ } from '../../containers/Dashboard/actions';
+import ExchangeDialog from '../../containers/ExchangeDialog';
 
+import FormField from '../Form/FormField';
 import Alert from '../Alert';
 import BtnUpgrade from '../Dashboard/BtnUpgrade';
 
@@ -18,8 +22,14 @@ const PowerUp = (props) => {
     nutzBalance,
     handlePowerUp,
     totalSupplyABP,
+    totalSupplyNTZ,
     activeSupplyABP,
   } = props;
+  const calcABPAmount = (ntz) => {
+    const ntzAmount = new BigNumber(ntz.toString());
+    return totalSupplyABP.mul(ntzAmount.div(totalSupplyNTZ));
+  };
+  const calcNTZtoABP = (amount) => formatAbp(calcABPAmount(round(amount, 8)).mul(ABP_DECIMALS));
   return (
     <div>
       <Description>
@@ -29,13 +39,17 @@ const PowerUp = (props) => {
         </Alert>
       </Description>
       {!account.isLocked ?
-        <TransferDialog
-          handleTransfer={handlePowerUp}
+        <ExchangeDialog
+          form="exchangeNTZtoABP"
+          handleExchange={handlePowerUp}
           maxAmount={nutzBalance}
           label={<FormattedMessage {...messages.powerUpAmountLabel} />}
           hideAddress
-          amountUnit="NTZ"
+          amountUnit={NTZ}
           placeholder="0"
+          calcExpectedAmount={calcNTZtoABP}
+          expectedAmountUnit="ABP"
+          component={FormField}
           {...props}
         />
         :
@@ -52,6 +66,7 @@ PowerUp.propTypes = {
   messages: PropTypes.object.isRequired,
   handlePowerUp: PropTypes.func,
   totalSupplyABP: PropTypes.object.isRequired,
+  totalSupplyNTZ: PropTypes.object.isRequired,
   activeSupplyABP: PropTypes.object.isRequired,
 };
 
