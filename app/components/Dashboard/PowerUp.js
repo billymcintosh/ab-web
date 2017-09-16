@@ -9,9 +9,7 @@ import TransferDialog from '../../containers/TransferDialog';
 import Alert from '../Alert';
 import BtnUpgrade from '../Dashboard/BtnUpgrade';
 
-import { Bold } from '../Dashboard/styles';
-
-import { Description } from './styles';
+import { Bold, Description } from './styles';
 
 const PowerUp = (props) => {
   const {

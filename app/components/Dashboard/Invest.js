@@ -7,9 +7,8 @@ import messages from '../../containers/Dashboard/messages';
 
 import Tabs from './Tabs';
 import PanesRoot from './PanesRoot';
-import PowerUp from '../TransferDialog/PowerUp';
-import PowerDown from '../TransferDialog/PowerDown';
-
+import PowerUp from './PowerUp';
+import PowerDown from './PowerDown';
 import { Pane, Section } from './styles';
 
 const TABS = [

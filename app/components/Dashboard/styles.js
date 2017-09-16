@@ -184,3 +184,7 @@ export const DBButton = styled(AppButton)`
     }
   }
 `;
+
+export const Description = styled.div`
+  padding: 10px 0;
+`;
