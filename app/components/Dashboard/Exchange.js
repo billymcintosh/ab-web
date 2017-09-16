@@ -43,6 +43,7 @@ const Exchange = (props) => {
             <ExchangeDialog
               form="exchangeNTZtoETH"
               component={TokenAmountField}
+              label={<FormattedMessage {...messages.amount} />}
               title={<FormattedMessage {...messages.sellTitle} />}
               descr={<FormattedMessage {...messages.floorPrice} values={{ amount: formatNtz(floor.mul(NTZ_DECIMALS)) }} />}
               amountUnit={NTZ}
@@ -63,6 +64,7 @@ const Exchange = (props) => {
             <ExchangeDialog
               form="exchangeETHtoNTZ"
               component={TokenAmountField}
+              label={<FormattedMessage {...messages.amount} />}
               title={<FormattedMessage {...messages.purchaseTitle} />}
               descr={<FormattedMessage {...messages.ceilingPrice} values={{ amount: formatNtz(ceiling.mul(NTZ_DECIMALS)) }} />}
               amountUnit={ETH}

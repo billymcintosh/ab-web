@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  amount: {
+    id: 'app.containers.Dashboard.amount',
+    defaultMessage: 'Amount',
+  },
   amountRequired: {
     id: 'app.containers.Dashboard.amountRequired',
     defaultMessage: 'The amount field cannot be empty',

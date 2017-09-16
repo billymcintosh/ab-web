@@ -61,7 +61,7 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
           <Field
             normalize={normalizerFloat}
             name="amount"
-            label={<FormattedMessage {...messages.sellTitle} />}
+            label={this.props.label}
             autoFocus
             maxAmount={maxAmount}
             minAmount={this.props.minAmount}
@@ -118,8 +118,9 @@ ExchangeDialog.propTypes = {
   title: PropTypes.node,
   descr: PropTypes.node,
   amountUnit: PropTypes.string.isRequired,
-  expectedAmountUnit: PropTypes.oneOf([NTZ, ETH]),
-  component: PropTypes.func,
+  expectedAmountUnit: PropTypes.oneOf([NTZ, ETH, 'ABP']),
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  label: PropTypes.node,
 };
 
 export default ExchangeDialog;
