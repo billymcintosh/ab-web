@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import BigNumber from 'bignumber.js';
 
+import {
+  NTZ_DECIMALS,
+  ETH_DECIMALS,
+  formatNtz,
+  formatEth,
+} from '../../utils/amountFormatter';
+import { round } from '../../utils';
+
 import ExchangeDialog from '../../containers/ExchangeDialog';
 import { ETH, NTZ } from '../../containers/Dashboard/actions';
-import { formatNtz, NTZ_DECIMALS } from '../../utils/amountFormatter';
 
 import TokenAmountField from '../Form/TokenAmountField';
 
@@ -26,6 +33,8 @@ const Exchange = (props) => {
   } = props;
   const calcETHAmount = (ntz) => new BigNumber(ntz.toString()).div(floor);
   const calcNTZAmount = (eth) => ceiling.mul(eth.toString());
+  const calcExpectedAmountETH = (amount) => formatEth(calcETHAmount(round(amount, 8)).mul(ETH_DECIMALS));
+  const calcExpectedAmountNTZ = (amount) => formatNtz(calcNTZAmount(round(amount, 8)).mul(NTZ_DECIMALS));
   return (
     <Pane name="dashboard-exchange" >
       <Section>
@@ -37,7 +46,7 @@ const Exchange = (props) => {
               title={<FormattedMessage {...messages.sellTitle} />}
               descr={<FormattedMessage {...messages.floorPrice} values={{ amount: formatNtz(floor.mul(NTZ_DECIMALS)) }} />}
               amountUnit={NTZ}
-              calcExpectedAmount={calcETHAmount}
+              calcExpectedAmount={calcExpectedAmountETH}
               handleExchange={handleNTZSell}
               maxAmount={BigNumber.min(
                 account.isLocked
@@ -46,7 +55,7 @@ const Exchange = (props) => {
                 nutzBalance
               )}
               placeholder="0"
-              expectedAmountUnit="eth"
+              expectedAmountUnit={ETH}
               {...props}
             />
           }
@@ -57,7 +66,7 @@ const Exchange = (props) => {
               title={<FormattedMessage {...messages.purchaseTitle} />}
               descr={<FormattedMessage {...messages.ceilingPrice} values={{ amount: formatNtz(ceiling.mul(NTZ_DECIMALS)) }} />}
               amountUnit={ETH}
-              calcExpectedAmount={calcNTZAmount}
+              calcExpectedAmount={calcExpectedAmountNTZ}
               handleExchange={handleNTZPurchase}
               maxAmount={BigNumber.min(
                 account.isLocked
@@ -66,7 +75,7 @@ const Exchange = (props) => {
                 ethBalance
               )}
               placeholder="0.00"
-              expectedAmountUnit="ntz"
+              expectedAmountUnit={NTZ}
               {...props}
             />
           }

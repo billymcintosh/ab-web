@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Form, Field } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 
-import { NTZ_DECIMALS, ETH_DECIMALS, formatNtz, formatEth, normalizerFloat } from '../../utils/amountFormatter';
-import { round } from '../../utils';
+import { normalizerFloat } from '../../utils/amountFormatter';
+import { ETH, NTZ } from '../../containers/Dashboard/actions';
 
 import NoWeb3Message from '../Web3Alerts/NoWeb3';
 import UnsupportedNetworkMessage from '../Web3Alerts/UnsupportedNetwork';
@@ -52,9 +52,6 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
       networkSupported,
       expectedAmountUnit,
     } = this.props;
-    const formatExpValue = expectedAmountUnit === 'ntz' ? formatNtz : formatEth;
-    const decimals = expectedAmountUnit === 'ntz' ? NTZ_DECIMALS : ETH_DECIMALS;
-
     return (
       <div style={{ maxWidth: 480 }}>
         {title && <H2>{title}</H2>}
@@ -79,9 +76,7 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
             <FeedbackField>
               <FormattedMessage
                 {...messages.expectedAmount}
-                values={{
-                  amount: formatExpValue(calcExpectedAmount(round(amount, 8)).mul(decimals)),
-                }}
+                values={{ amount: calcExpectedAmount(amount) }}
               />
               <ReceiveUnit>
                 {expectedAmountUnit.toUpperCase()}
@@ -115,7 +110,7 @@ ExchangeDialog.propTypes = {
   networkSupported: PropTypes.bool,
   hasWeb3: PropTypes.bool,
   maxAmount: PropTypes.object, // BigNumber
-  calcExpectedAmount: PropTypes.func,
+  calcExpectedAmount: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
   handleExchange: PropTypes.func, // eslint-disable-line
   stopSubmit: PropTypes.func,
@@ -123,7 +118,7 @@ ExchangeDialog.propTypes = {
   title: PropTypes.node,
   descr: PropTypes.node,
   amountUnit: PropTypes.string.isRequired,
-  expectedAmountUnit: PropTypes.oneOf(['ntz', 'eth']),
+  expectedAmountUnit: PropTypes.oneOf([NTZ, ETH]),
   component: PropTypes.func,
 };
 
