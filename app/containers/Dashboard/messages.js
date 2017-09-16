@@ -116,7 +116,7 @@ export default defineMessages({
   },
   powerUpAvailable: {
     id: 'app.containers.Dashboard.powerUpAvailable',
-    defaultMessage: 'Power Up Available:',
+    defaultMessage: 'Available: ~{amount} ABP',
   },
   powerDownAmountLabel: {
     id: 'app.containers.Dashboard.powerDownAmountLabel',
@@ -148,11 +148,11 @@ export default defineMessages({
   },
   floorPrice: {
     id: 'app.containers.Dashboard.floorPrice',
-    defaultMessage: '{amount} NTZ for 1 ETH',
+    defaultMessage: 'Rate: {amount} NTZ for 1 ETH',
   },
   ceilingPrice: {
     id: 'app.containers.Dashboard.ceilingPrice',
-    defaultMessage: '1 ETH for {amount} NTZ',
+    defaultMessage: 'Rate: 1 ETH for {amount} NTZ',
   },
   tableJoin: {
     id: 'app.containers.Dashboard.tableJoin',

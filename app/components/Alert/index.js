@@ -3,21 +3,21 @@ import styled from 'styled-components';
 import { gray } from '../../variables';
 
 const borderColors = {
-  info: 'white',
+  info: 'none',
   danger: '#dcb1b1',
   warning: '#ccbb99',
   success: '#d4e7c4',
 };
 
 const bgColors = {
-  info: gray,
+  info: '#e9e9e9',
   danger: '#ffcaca',
   warning: '#ffee99',
   success: '#e7efe4',
 };
 
 const textColors = {
-  info: 'white',
+  info: gray,
   danger: '#634a49',
   warning: '#634a33',
   success: '#3a6536',
@@ -30,6 +30,11 @@ const Alert = styled.div`
   border-radius: 4px;
   color: ${(props) => textColors[props.theme]};
   background-color: ${(props) => bgColors[props.theme]};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
 `;
 
 export default Alert;

@@ -27,7 +27,7 @@ const PowerUp = (props) => {
   } = props;
   const calcABPAmount = (ntz) => {
     const ntzAmount = new BigNumber(ntz.toString());
-    return totalSupplyABP.mul(ntzAmount.div(totalSupplyNTZ));
+    return totalSupplyABP.mul(ntzAmount.div(totalSupplyNTZ.toString()));
   };
   const calcNTZtoABP = (amount) => formatAbp(calcABPAmount(round(amount, 8)).mul(ABP_DECIMALS));
   return (
@@ -35,7 +35,14 @@ const PowerUp = (props) => {
       <Description>
         <FormattedHTMLMessage {...messages.powerUpDescr} />
         <Alert theme="info" style={{ textAlign: 'center' }}>
-          <Bold><FormattedMessage {...messages.powerUpAvailable} /></Bold> ~{formatAbp(totalSupplyABP - activeSupplyABP)} ABP
+          <Bold>
+            <FormattedMessage
+              {...messages.powerUpAvailable}
+              values={{
+                amount: formatAbp(totalSupplyABP.minus(activeSupplyABP.toString())),
+              }}
+            />
+          </Bold>
         </Alert>
       </Description>
       {!account.isLocked ?
