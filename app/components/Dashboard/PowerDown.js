@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BigNumber from 'bignumber.js';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
-import { ABP_DECIMALS } from '../../utils/amountFormatter';
-import TransferDialog from '../../containers/TransferDialog';
+import { formatNum, ABP_DECIMALS } from '../../utils/amountFormatter';
+import ExchangeDialog from '../../containers/ExchangeDialog';
+import { ABP, NTZ } from '../../containers/Dashboard/actions';
 
+import FormField from '../Form/FormField';
 import Alert from '../Alert';
 
 import { Description } from './styles';
@@ -13,9 +16,15 @@ const PowerDown = (props) => {
   const {
     messages,
     totalSupplyABP,
+    totalSupplyNTZ,
     pwrBalance,
     handlePowerDown,
   } = props;
+  const calcABPtoNTZ = (amount) => {
+    const abpAmount = new BigNumber(amount);
+    const ntzAmount = totalSupplyNTZ.mul(abpAmount.div(totalSupplyABP));
+    return formatNum(ntzAmount, 0);
+  };
   return (
     <div>
       <Description>
@@ -29,14 +38,18 @@ const PowerDown = (props) => {
           <FormattedMessage {...messages.powerDownPrereq} />
         </Alert>
         :
-        <TransferDialog
-          handleTransfer={handlePowerDown}
+        <ExchangeDialog
+          form="exchangeABPtoNTZ"
+          handleExchange={handlePowerDown}
           maxAmount={pwrBalance.div(ABP_DECIMALS)}
           minAmount={totalSupplyABP.div(10000).div(ABP_DECIMALS).ceil()}
           hideAddress
           label={<FormattedMessage {...messages.powerDownAmountLabel} />}
-          amountUnit="ABP"
+          calcExpectedAmount={calcABPtoNTZ}
+          expectedAmountUnit={NTZ}
+          amountUnit={ABP}
           placeholder="0.00"
+          component={FormField}
           {...props}
         />
       }
@@ -46,6 +59,7 @@ const PowerDown = (props) => {
 PowerDown.propTypes = {
   messages: PropTypes.object.isRequired,
   totalSupplyABP: PropTypes.object.isRequired,
+  totalSupplyNTZ: PropTypes.object.isRequired,
   handlePowerDown: PropTypes.func.isRequired,
   pwrBalance: PropTypes.object,
 };

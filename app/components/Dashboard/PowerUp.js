@@ -4,16 +4,14 @@ import BigNumber from 'bignumber.js';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
 import {
-  formatAbp,
   formatAmount,
   formatNum,
   toNtz,
   ABP_DECIMALS,
   NTZ_DECIMALS,
 } from '../../utils/amountFormatter';
-import { round } from '../../utils';
 
-import { NTZ } from '../../containers/Dashboard/actions';
+import { ABP, NTZ } from '../../containers/Dashboard/actions';
 import ExchangeDialog from '../../containers/ExchangeDialog';
 
 import FormField from '../Form/FormField';
@@ -32,13 +30,15 @@ const PowerUp = (props) => {
     totalSupplyNTZ,
     activeSupplyABP,
   } = props;
-  const calcABPAmount = (ntz) => {
-    const ntzAmount = new BigNumber(ntz.toString());
-    return totalSupplyABP.mul(ntzAmount.div(totalSupplyNTZ.toString()));
+  const adjustmentFactor = (amount) => amount.mul(2);
+  const calcNTZtoABP = (amount) => {
+    const ntzAmount = new BigNumber(amount);
+    const abpAmount = totalSupplyABP.mul(ntzAmount.div(totalSupplyNTZ));
+    const adjustedAbp = adjustmentFactor(abpAmount);
+    return formatNum(adjustedAbp, 3);
   };
-  const calcNTZtoABP = (amount) => formatAbp(calcABPAmount(round(amount, 8)).mul(ABP_DECIMALS));
   const totalAvailABP = totalSupplyABP.minus(activeSupplyABP);
-  const powerUpRate = totalSupplyNTZ.div(totalSupplyABP);
+  const powerUpRate = totalSupplyNTZ.div(adjustmentFactor(totalSupplyABP));
   const powerUpMaxNtz = toNtz(totalAvailABP.mul(totalSupplyNTZ.div(totalSupplyABP)));
   const powerUpMinNtz = totalSupplyNTZ.div(NTZ_DECIMALS.mul(10000));
   return (
@@ -75,7 +75,7 @@ const PowerUp = (props) => {
           amountUnit={NTZ}
           placeholder="0"
           calcExpectedAmount={calcNTZtoABP}
-          expectedAmountUnit="ABP"
+          expectedAmountUnit={ABP}
           component={FormField}
           {...props}
         />

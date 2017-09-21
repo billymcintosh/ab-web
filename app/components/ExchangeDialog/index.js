@@ -4,7 +4,7 @@ import { Form, Field } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 
 import { normalizerFloat } from '../../utils/amountFormatter';
-import { ETH, NTZ } from '../../containers/Dashboard/actions';
+import { ABP, ETH, NTZ } from '../../containers/Dashboard/actions';
 
 import Web3Alerts from '../../containers/Web3Alerts';
 import SubmitButton from '../SubmitButton';
@@ -120,7 +120,7 @@ ExchangeDialog.propTypes = {
   title: PropTypes.node,
   descr: PropTypes.node,
   amountUnit: PropTypes.string.isRequired,
-  expectedAmountUnit: PropTypes.oneOf([NTZ, ETH, 'ABP']),
+  expectedAmountUnit: PropTypes.oneOf([NTZ, ETH, ABP]),
   component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   label: PropTypes.node,
   placeholder: PropTypes.string,
