@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { gray } from '../../variables';
 
 const borderColors = {
-  info: 'none',
+  info: '#eee',
   danger: '#dcb1b1',
   warning: '#ccbb99',
   success: '#d4e7c4',
 };
 
 const bgColors = {
-  info: '#e9e9e9',
+  info: '#f4f7f9',
   danger: '#ffcaca',
   warning: '#ffee99',
   success: '#e7efe4',

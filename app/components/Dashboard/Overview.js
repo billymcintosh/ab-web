@@ -4,21 +4,64 @@ import { FormattedMessage } from 'react-intl';
 
 import WithLoading from '../../components/WithLoading';
 import { formatEth } from '../../utils/amountFormatter';
+import { conf } from '../../app.config';
 
+import A from '../A';
 import H2 from '../H2';
 import List from '../List';
 import TimedButton from '../TimedButton';
+import Button from '../Button';
 
 import Economy from './Economy';
-import { Pane, SectionOverview } from './styles';
+import { Pane, SectionOverview, Subtitle } from './styles';
 
 const Overview = (props) => {
   const { account, listTxns, downRequests, ethAllowance, ethPayoutDate, ethPayoutPending, handleETHPayout, messages } = props;
   const requestColumnStyle = { width: 20, textAlign: 'left', whiteSpace: 'nowrap' };
+  const emptyColumnStyle = { width: 20 };
   const ethAmount = formatEth(ethAllowance);
 
   return (
     <Pane name="dashboard-overview">
+      <SectionOverview
+        name="account-info"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{ margin: '1em' }}>
+          <strong>Account email:</strong>&nbsp;{account.email}
+        </div>
+        <Button
+          size="medium"
+          onClick={props.toggleInvestTour}
+          data-tour="tour-begin"
+        >
+          <i className="fa fa-graduation-cap" />&nbsp;Invest Tutorial
+        </Button>
+      </SectionOverview>
+      {account.refs && account.refs.length &&
+        <SectionOverview
+          name="refs"
+          style={{
+            alignItems: 'center',
+          }}
+        >
+          <H2><FormattedMessage {...messages.refs} /></H2>
+          <List
+            items={account.refs.map((ref) => [ref.id, ref.allowance])}
+            headers={[
+              'Code',
+              'Invitations left',
+            ]}
+            columnsStyle={{
+              0: { width: 20, textAlign: 'left', whiteSpace: 'nowrap', paddingLeft: '20px', paddingRight: '20px' },
+              1: { textAlign: 'right', whiteSpace: 'nowrap', paddingRight: '20px' },
+            }}
+          />
+        </SectionOverview>
+      }
       {ethAllowance && ethAllowance.toNumber() > 0 && ethPayoutDate &&
         <SectionOverview
           name="eth-payout"
@@ -78,6 +121,11 @@ const Overview = (props) => {
 
       <SectionOverview name="transaction-history">
         <H2><FormattedMessage {...messages.included} /></H2>
+        <Subtitle>
+          <A href={`${conf().etherscanUrl}address/${conf().ntzAddr}`} target="_blank">
+            Nutz contract on etherscan
+          </A>
+        </Subtitle>
         <List
           items={listTxns}
           headers={[
@@ -89,9 +137,9 @@ const Overview = (props) => {
             '',
           ]}
           columnsStyle={{
-            0: { width: 20 },
+            0: emptyColumnStyle,
             1: { textAlign: 'left', width: 10, whiteSpace: 'nowrap' },
-            2: { width: 20 },
+            2: emptyColumnStyle,
             3: { textAlign: 'left', whiteSpace: 'nowrap' },
             4: { textAlign: 'right', whiteSpace: 'nowrap' },
             5: { width: '100%', textAlign: 'left' },
@@ -111,6 +159,7 @@ Overview.propTypes = {
   ethPayoutDate: PropTypes.object,
   handleETHPayout: PropTypes.func,
   messages: PropTypes.object,
+  toggleInvestTour: PropTypes.func.isRequired,
 };
 
 export default Overview;

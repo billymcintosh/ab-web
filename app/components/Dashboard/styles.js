@@ -188,3 +188,8 @@ export const DBButton = styled(AppButton)`
 export const Description = styled.div`
   padding: 10px 0;
 `;
+
+export const Subtitle = styled.p`
+  text-align: center;
+  margin: -10px 0 20px;
+`;

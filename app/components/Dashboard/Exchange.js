@@ -76,7 +76,10 @@ const Exchange = (props) => {
               title={<FormattedMessage {...messages.purchaseTitle} />}
               descr={
                 <Alert theme="info">
-                  <FormattedMessage values={{ amount: formatNtz(ceiling.mul(NTZ_DECIMALS)) }} />
+                  <FormattedMessage
+                    {...messages.floorPrice}
+                    values={{ amount: formatNtz(ceiling.mul(NTZ_DECIMALS)) }}
+                  />
                 </Alert>
               }
               amountUnit={ETH}

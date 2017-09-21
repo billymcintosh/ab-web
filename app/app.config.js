@@ -36,6 +36,7 @@ export function conf() {
       gtmId: 'GTM-T7SBXCK',
       intercomAppId: 'z9xn3a6h',
       pusherApiKey: 'd4832b88a2a81f296f53',
+      shapeshiftKey: '1418115287605',
     };
   }
 
@@ -55,12 +56,13 @@ export function conf() {
       ntzAddr: '0x652d4bd25fd0271bfef3bc9a5e720337d7d6b523',
       pwrAddr: '0xe2a24aec34ad4414bd9e4313cfda5f2e15c9cf0a',
       pullAddr: '0xdcd673aeb5ec380889a45e6f10cc2e7aa7472432',
-      tableFactory: '0x9020237ffcc244a2d4bb202663494e0c0a3f9672',
+      tableFactory: '0xD787e7eB682b77040431457422Dc1066f017A795',
       sentryDSN: 'https://8c3e021848b247ddaf627c8040f94e07@sentry.io/153017',
       gaProperty: 'UA-98848213-1',
       gtmId: 'GTM-T7SBXCK',
       intercomAppId: 'm6zcmwwq',
       pusherApiKey: 'd4832b88a2a81f296f53',
+      shapeshiftKey: '',
     };
   }
 
@@ -86,6 +88,7 @@ export function conf() {
     gtmId: 'GTM-XXXX',
     intercomAppId: 'm6zcmwwq',
     pusherApiKey: 'd4832b88a2a81f296f53',
+    shapeshiftKey: '',
   };
 }
 

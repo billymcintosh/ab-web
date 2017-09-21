@@ -6,8 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { normalizerFloat } from '../../utils/amountFormatter';
 import { ETH, NTZ } from '../../containers/Dashboard/actions';
 
-import NoWeb3Message from '../Web3Alerts/NoWeb3';
-import UnsupportedNetworkMessage from '../Web3Alerts/UnsupportedNetwork';
+import Web3Alerts from '../../containers/Web3Alerts';
 import SubmitButton from '../SubmitButton';
 import H2 from '../H2';
 
@@ -39,21 +38,25 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
 
   render() {
     const {
+      amountUnit,
       messages,
       handleSubmit,
       submitting,
       maxAmount,
       amount = 0,
       calcExpectedAmount,
+      expectedAmountUnit,
       title,
       descr,
       invalid,
-      hasWeb3,
-      networkSupported,
-      expectedAmountUnit,
+      canSendTx,
+      placeholder,
     } = this.props;
     return (
-      <div style={{ maxWidth: 480 }}>
+      <div
+        style={{ maxWidth: 480 }}
+        data-tour={`exchange-${amountUnit}-form`}
+      >
         {title && <H2>{title}</H2>}
         {descr}
 
@@ -70,7 +73,7 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
             amountUnit={this.props.amountUnit}
             setAmountUnit={this.props.setAmountUnit}
             component={this.props.component}
-            placeholder={this.props.placeholder}
+            placeholder={placeholder}
           />
 
           {calcExpectedAmount && expectedAmountUnit &&
@@ -85,11 +88,10 @@ class ExchangeDialog extends React.Component { // eslint-disable-line react/pref
             </FeedbackField>
           }
 
-          {!hasWeb3 && <NoWeb3Message />}
-          {hasWeb3 && !networkSupported && <UnsupportedNetworkMessage />}
+          <Web3Alerts />
 
           <SubmitButton
-            disabled={invalid || !hasWeb3 || !networkSupported}
+            disabled={invalid || !canSendTx}
             submitting={submitting}
           >
             <FormattedMessage {...messages.submitButton} />
@@ -108,8 +110,7 @@ ExchangeDialog.propTypes = {
   submitting: PropTypes.bool,
   setAmountUnit: PropTypes.func,
   invalid: PropTypes.bool,
-  networkSupported: PropTypes.bool,
-  hasWeb3: PropTypes.bool,
+  canSendTx: PropTypes.bool,
   maxAmount: PropTypes.object, // BigNumber
   calcExpectedAmount: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
