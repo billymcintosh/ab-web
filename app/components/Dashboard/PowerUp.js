@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
-import {
-  formatAmount,
-  formatNum,
-  toNtz,
-  ABP_DECIMALS,
-  NTZ_DECIMALS,
-} from '../../utils/amountFormatter';
+import { formatAmount, toNtz, ABP_DECIMALS, NTZ_DECIMALS } from '../../utils/amountFormatter';
 
 import { ABP, NTZ } from '../../containers/Dashboard/actions';
 import ExchangeDialog from '../../containers/ExchangeDialog';
@@ -26,21 +20,21 @@ const PowerUp = (props) => {
     account,
     nutzBalance,
     handlePowerUp,
-    totalSupplyABP,
-    totalSupplyNTZ,
-    activeSupplyABP,
+    totalSupplyPwr,
+    totalSupplyBabz,
+    activeSupplyPwr,
   } = props;
   const adjustmentFactor = (amount) => amount.mul(2);
   const calcNTZtoABP = (amount) => {
     const ntzAmount = new BigNumber(amount);
-    const abpAmount = totalSupplyABP.mul(ntzAmount.div(totalSupplyNTZ));
+    const abpAmount = totalSupplyPwr.mul(ntzAmount.div(totalSupplyBabz));
     const adjustedAbp = adjustmentFactor(abpAmount);
-    return formatNum(adjustedAbp, 3);
+    return adjustedAbp.toFormat(2);
   };
-  const totalAvailABP = totalSupplyABP.minus(activeSupplyABP);
-  const powerUpRate = totalSupplyNTZ.div(adjustmentFactor(totalSupplyABP));
-  const powerUpMaxNtz = toNtz(totalAvailABP.mul(totalSupplyNTZ.div(totalSupplyABP)));
-  const powerUpMinNtz = totalSupplyNTZ.div(NTZ_DECIMALS.mul(10000));
+  const totalAvailPwr = totalSupplyPwr.minus(activeSupplyPwr);
+  const powerUpRate = totalSupplyBabz.div(adjustmentFactor(totalSupplyPwr));
+  const powerUpMaxNtz = toNtz(totalAvailPwr.mul(totalSupplyBabz.div(totalSupplyPwr)));
+  const powerUpMinNtz = totalSupplyBabz.div(NTZ_DECIMALS.mul(10000));
   return (
     <div>
       <Description>
@@ -48,19 +42,19 @@ const PowerUp = (props) => {
         <Alert theme="info" style={{ textAlign: 'center' }}>
           <FormattedMessage
             {...messages.powerUpAvailable}
-            values={{ amount: formatAmount(ABP_DECIMALS, totalAvailABP, 0) }}
+            values={{ amount: formatAmount(ABP_DECIMALS, totalAvailPwr, 0) }}
           />
         </Alert>
         <Alert theme="info" style={{ textAlign: 'center' }}>
           <FormattedMessage
             {...messages.powerUpRate}
-            values={{ amount: formatNum(powerUpRate, 0) }}
+            values={{ amount: powerUpRate.toFormat(0) }}
           />
         </Alert>
         <Alert theme="info" style={{ textAlign: 'center' }}>
           <FormattedMessage
             {...messages.powerUpMinAmount}
-            values={{ amount: formatNum(powerUpMinNtz, 0) }}
+            values={{ amount: powerUpMinNtz.toFormat(0) }}
           />
         </Alert>
       </Description>
@@ -92,9 +86,9 @@ PowerUp.propTypes = {
   nutzBalance: PropTypes.object,
   messages: PropTypes.object.isRequired,
   handlePowerUp: PropTypes.func,
-  totalSupplyABP: PropTypes.object.isRequired,
-  totalSupplyNTZ: PropTypes.object.isRequired,
-  activeSupplyABP: PropTypes.object.isRequired,
+  totalSupplyPwr: PropTypes.object.isRequired,
+  totalSupplyBabz: PropTypes.object.isRequired,
+  activeSupplyPwr: PropTypes.object.isRequired,
 };
 
 export default PowerUp;

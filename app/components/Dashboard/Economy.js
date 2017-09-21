@@ -2,71 +2,77 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-
-import { formatAbp, formatNtz, percent3FixedDec } from '../../utils/amountFormatter';
+import { formatAbp, formatNtz } from '../../utils/amountFormatter';
 
 import WithLoading from '../WithLoading';
 import List from '../List';
 
 const Economy = (props) => {
   const {
-    totalSupplyABP,
-    totalSupplyNTZ,
-    activeSupplyABP,
+    totalSupplyPwr,
+    totalSupplyBabz,
+    activeSupplyPwr,
+    activeSupplyBabz,
     pwrBalance,
     babzBalance,
     messages,
   } = props;
+  // const testRatio = nutzBalance && totalSupplyBabz && nutzBalance.toNumber() / totalSupplyBabz.toNumber();
+  const pwrPercentage = pwrBalance && totalSupplyPwr && pwrBalance.div(totalSupplyPwr).mul(100).toFormat(6);
+  const nutzPercentage = babzBalance && totalSupplyBabz && babzBalance.div(totalSupplyBabz).mul(100).toFormat(6);
   const ECONOMY_LIST = [
     [
       <FormattedMessage {...messages.economyListOwnership} />,
       <WithLoading
-        isLoading={!babzBalance && !totalSupplyNTZ}
+        isLoading={!babzBalance && !totalSupplyBabz}
         loadingSize="14px"
         type="inline"
       >
-        <FormattedMessage values={{ amount: percent3FixedDec(babzBalance / totalSupplyNTZ) }} {...messages.percentUnit} />
+        <FormattedMessage values={{ amount: nutzPercentage }} {...messages.percentUnit} />
       </WithLoading>,
       <WithLoading
-        isLoading={!pwrBalance && !totalSupplyABP}
+        isLoading={!pwrBalance && !totalSupplyPwr}
         loadingSize="14px"
         type="inline"
       >
-        <FormattedMessage values={{ amount: percent3FixedDec(pwrBalance / totalSupplyABP) }} {...messages.percentUnit} />
+        <FormattedMessage values={{ amount: pwrPercentage }} {...messages.percentUnit} />
       </WithLoading>,
     ],
     [
       <FormattedMessage {...messages.economyListActive} />,
       <WithLoading
-        isLoading={!totalSupplyNTZ}
+        isLoading={!totalSupplyBabz}
         loadingSize="14px"
         type="inline"
       >
-        <FormattedMessage values={{ amount: formatNtz(totalSupplyNTZ) }} {...messages.ntzUnit} />
+        <FormattedMessage
+          values={{ amount: formatNtz(activeSupplyBabz) }}
+          {...messages.ntzUnit}
+        />
       </WithLoading>,
       <WithLoading
-        isLoading={!activeSupplyABP}
+        isLoading={!activeSupplyPwr}
         loadingSize="14px"
         type="inline"
       >
-        <FormattedMessage values={{ amount: formatAbp(activeSupplyABP) }} {...messages.abpUnit} />
+        <FormattedMessage values={{ amount: formatAbp(activeSupplyPwr) }} {...messages.abpUnit} />
       </WithLoading>,
     ],
     [
       <FormattedMessage {...messages.economyListTotal} />,
       <WithLoading
-        isLoading={!totalSupplyNTZ}
+        isLoading={!totalSupplyBabz}
         loadingSize="14px"
         type="inline"
       >
-        <FormattedMessage values={{ amount: formatNtz(totalSupplyNTZ) }} {...messages.ntzUnit} />
+        <FormattedMessage values={{ amount: formatNtz(totalSupplyBabz) }} {...messages.ntzUnit} />
       </WithLoading>,
       <WithLoading
-        isLoading={!totalSupplyABP}
+        isLoading={!totalSupplyPwr}
         loadingSize="14px"
         type="inline"
       >
-        <FormattedMessage values={{ amount: formatAbp(totalSupplyABP) }} {...messages.abpUnit} />
+        <FormattedMessage values={{ amount: formatAbp(totalSupplyPwr) }} {...messages.abpUnit} />
       </WithLoading>,
     ],
   ];
@@ -86,9 +92,10 @@ const Economy = (props) => {
   );
 };
 Economy.propTypes = {
-  totalSupplyABP: PropTypes.object,
-  totalSupplyNTZ: PropTypes.object,
-  activeSupplyABP: PropTypes.object,
+  totalSupplyPwr: PropTypes.object,
+  totalSupplyBabz: PropTypes.object,
+  activeSupplyPwr: PropTypes.object,
+  activeSupplyBabz: PropTypes.object,
   pwrBalance: PropTypes.object,
   babzBalance: PropTypes.object,
   messages: PropTypes.object,

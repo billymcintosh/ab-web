@@ -144,7 +144,7 @@ export default defineMessages({
   },
   powerDownMin: {
     id: 'app.containers.Dashboard.powerDownMin',
-    defaultMessage: 'Minimum Power Down amount: {min} ABP',
+    defaultMessage: 'Minimum Power Down amount: ~{min} ABP',
   },
   powerDownPrereq: {
     id: 'app.containers.Dashboard.powerDownPrereq',
@@ -232,7 +232,7 @@ export default defineMessages({
   },
   economyListOwnership: {
     id: 'app.containers.Dashboard.economyListOwnership',
-    defaultMessage: 'Your Ownership %',
+    defaultMessage: 'Your Ownership',
   },
   ntzUnit: {
     id: 'app.containers.Dashboard.ntzUnit',

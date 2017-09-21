@@ -235,6 +235,7 @@ class DashboardRoot extends React.Component {
     this.token.floor.call();
     this.token.ceiling.call();
     this.token.totalSupply.call();
+    this.token.activeSupply.call();
     this.token.balanceOf.call(proxyAddr);
     this.web3.eth.getBalance(proxyAddr);
 
@@ -426,9 +427,10 @@ class DashboardRoot extends React.Component {
     const { downRequests, isFishWarned } = this.state;
     const qrUrl = `ether:${account.proxy}`;
     const downtime = this.power.downtime();
-    const totalSupplyNTZ = this.token.totalSupply();
-    const totalSupplyABP = this.power.totalSupply();
-    const activeSupplyABP = this.power.activeSupply();
+    const totalSupplyBabz = this.token.totalSupply();
+    const totalSupplyPwr = this.power.totalSupply();
+    const activeSupplyPwr = this.power.activeSupply();
+    const activeSupplyBabz = this.token.activeSupply();
     const weiBalance = this.web3.eth.balance(account.proxy);
     const ethBalance = weiBalance && weiBalance.div(ETH_DECIMALS);
     const babzBalance = this.token.balanceOf(account.proxy);
@@ -466,9 +468,10 @@ class DashboardRoot extends React.Component {
             ethPayoutPending: this.props.dashboardTxs.pendingETHPayout,
             pwrBalance,
             nutzBalance,
-            totalSupplyABP,
-            totalSupplyNTZ,
-            activeSupplyABP,
+            totalSupplyPwr,
+            totalSupplyBabz,
+            activeSupplyPwr,
+            activeSupplyBabz,
             listTxns,
             qrUrl,
             messages,

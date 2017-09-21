@@ -33,11 +33,6 @@ export const toNtz = toAmount.bind(null, NTZ_DECIMALS);
 export const formatNtz = (amount, dp = 0) => formatAmount(NTZ_DECIMALS, amount, dp);
 export const formatAbp = formatAmount.bind(null, ABP_DECIMALS);
 export const formatEth = formatAmount.bind(null, ETH_DECIMALS);
-// format number: formatNum(10000.03924832, 2) => 10,000.00
-export const formatNum = (amount, dp) => formatAmount(new BigNumber(1), amount, dp);
-
-// give a float of 0.02088839248, return '0.020'
-export const percent3FixedDec = (float) => parseFloat(Math.round(float * 1000) / 1000).toFixed(3);
 
 // only allow digits and one dot
 export const normalizerFloat = (value) => {
