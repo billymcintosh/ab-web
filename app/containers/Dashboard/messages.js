@@ -122,6 +122,14 @@ export default defineMessages({
     id: 'app.containers.Dashboard.powerUpAvailable',
     defaultMessage: 'Available: ~{amount} ABP',
   },
+  powerUpMinAmount: {
+    id: 'app.containers.Dashboard.powerUpMinAmount',
+    defaultMessage: 'Minimum Power Up Amount: ~{amount} NTZ',
+  },
+  powerUpRate: {
+    id: 'app.containers.Dashboard.powerUpRate',
+    defaultMessage: 'Rate: ~{amount} NTZ for 1 ABP',
+  },
   powerDownAmountLabel: {
     id: 'app.containers.Dashboard.powerDownAmountLabel',
     defaultMessage: 'Amount ABP',
