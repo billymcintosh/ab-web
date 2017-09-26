@@ -59,7 +59,7 @@ const PowerUp = (props) => {
           />
         </Alert>
       </Description>
-      {!account.isLocked ?
+      {!account.isLocked &&
         <ExchangeDialog
           form="exchangeNTZtoABP"
           handleExchange={handlePowerUp}
@@ -74,9 +74,10 @@ const PowerUp = (props) => {
           component={FormField}
           {...props}
         />
-        :
+      }
+      {account.isLocked &&
         <Alert theme="warning">
-          <BtnUpgrade {...props} /> to Power Up.
+          <BtnUpgrade {...props} />&nbsp;to Power Up.
         </Alert>
       }
     </div>
