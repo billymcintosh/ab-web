@@ -34,7 +34,7 @@ const PowerUp = (props) => {
   const totalAvailPwr = totalSupplyPwr.minus(activeSupplyPwr);
   const powerUpRate = totalSupplyBabz.div(adjustmentFactor(totalSupplyPwr));
   // ensure that more ABP than exists can not be requested
-  const powerUpMaxNtz = toNtz(totalAvailPwr.mul(totalSupplyBabz.div(adjustmentFactor(totalSupplyPwr)))).div(1000).round().mul(1000);
+  const powerUpMaxNtz = toNtz(totalAvailPwr.mul(totalSupplyBabz.div(adjustmentFactor(totalSupplyPwr)))).div(1000).round(0, BigNumber.ROUND_DOWN).mul(1000);
   const powerUpMinNtz = totalSupplyBabz.div(NTZ_DECIMALS.mul(10000)).ceil();
   return (
     <div>
