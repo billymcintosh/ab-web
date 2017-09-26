@@ -29,12 +29,12 @@ const PowerUp = (props) => {
     const ntzAmount = new BigNumber(amount);
     const abpAmount = totalSupplyPwr.mul(ntzAmount.div(totalSupplyBabz));
     const adjustedAbp = adjustmentFactor(abpAmount);
-    return adjustedAbp.toFormat(2);
+    return adjustedAbp.toFormat(3);
   };
   const totalAvailPwr = totalSupplyPwr.minus(activeSupplyPwr);
   const powerUpRate = totalSupplyBabz.div(adjustmentFactor(totalSupplyPwr));
   const powerUpMaxNtz = toNtz(totalAvailPwr.mul(totalSupplyBabz.div(totalSupplyPwr)));
-  const powerUpMinNtz = totalSupplyBabz.div(NTZ_DECIMALS.mul(10000));
+  const powerUpMinNtz = totalSupplyBabz.div(NTZ_DECIMALS.mul(10000)).ceil();
   return (
     <div>
       <Description>
