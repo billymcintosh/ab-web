@@ -20,14 +20,14 @@ const PowerDown = (props) => {
     pwrBalance,
     handlePowerDown,
   } = props;
-  const adjustmentFactor = (amount) => amount.mul(2);
+  const adjustmentFactor = (amount) => amount / 2;
   const calcABPtoNTZ = (amount) => {
     const abpAmount = new BigNumber(amount);
     const ntzAmount = abpAmount.div(totalSupplyPwr).mul(totalSupplyBabz);
     const adjNtzAmount = ntzAmount.div(2);
     return adjNtzAmount.toFormat(0);
   };
-  const minPowerDownPwr = adjustmentFactor(totalSupplyPwr.div(10000).div(ABP_DECIMALS).ceil());
+  const minPowerDownPwr = totalSupplyPwr.div(adjustmentFactor(10000)).div(ABP_DECIMALS).round(3, BigNumber.ROUND_UP);
   return (
     <div>
       <Description>
