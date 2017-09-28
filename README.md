@@ -5,7 +5,8 @@ Web app to play a fair and secure game of poker.
 ## Quick Start
 
 1. Clone this repo using `git clone https://github.com/acebusters/ab-web.git`
-2. Run `npm start` to see the app at `http://localhost:3000`.
+2. Run `npm install` to install the dependencies.
+3. Run `npm start` to see the app at `http://localhost:3000`.
 
 Now you're ready to rumble!
 
